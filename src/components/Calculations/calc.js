@@ -12,8 +12,53 @@ class CalculationButtons extends React.Component {
             result: null,
             operator: "",
             clear: false,
-            displayResult: false
+            displayResult: false,
+            nextCalc: false
         }
+    }
+    incrementNum = (addTo) => {
+        if (this.state.displayResult !== true) {
+            this.setState({ firstInput: this.state.firstInput += addTo })
+        } else {
+            this.setState({ secondInput: this.state.secondInput += addTo })
+        }
+    }
+    setOperator = (newOperator) => {
+        this.setState({ displayResult: true })
+        this.setState({ operator: newOperator })
+    }
+    mathMethod = () => {
+        switch (this.state.operator) {
+            case "+":
+                this.setState({firstInput: parseInt(this.state.firstInput) + parseInt(this.state.secondInput)})
+                this.setState({secondInput: "", operator: ""})
+                break;
+            case "-":
+                this.setState({firstInput: parseInt(this.state.firstInput) - parseInt(this.state.secondInput)})
+                this.setState({secondInput: "", operator: ""})
+                break;
+            case "/":
+                this.setState({firstInput: parseInt(this.state.firstInput) / parseInt(this.state.secondInput)})
+                this.setState({secondInput: "", operator: ""})
+                break;
+            case "*":
+                this.setState({firstInput: parseInt(this.state.firstInput) * parseInt(this.state.secondInput)})
+                this.setState({secondInput: "", operator: ""})
+                break;
+            default:
+                this.setState({ result: null, firstInput: "", secondInput: "", operator: "", clear: false, displayResult: false })
+                break;
+        }
+    }
+    clearMethod = () => {
+        this.setState({
+            result: null,
+            firstInput: "",
+            secondInput: "",
+            operator: "",
+            clear: false,
+            displayResult: false
+        })
 
     }
     render() {
@@ -21,54 +66,54 @@ class CalculationButtons extends React.Component {
             <Container className="mt-5">
                 <Row>
                     <Col className="d-flex justify-content-center">
-                        <Disp className="ml-3 mr-3">{this.props.firstInput}</Disp>
+                        <Disp message={this.state.firstInput} />
                     </Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-center">
-                        <Disp className="ml-3 mr-3">{this.props.operator}</Disp>
+                        <Disp message={this.state.operator} />
                     </Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-center">
-                        <Disp className="ml-3 mr-3">{this.props.secondInput}</Disp>
+                        <Disp message={this.state.secondInput} />
                     </Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-center">
-                        <Disp className="ml-3 mr-3">{this.props.result}</Disp>
+                        <Disp message={this.state.result} />
                     </Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-center">
-                        <Butt number={1} className="ml-3 mr-3"/>
-                        <Butt number={2} className="ml-3 mr-3"/>
-                        <Butt number={3} className="ml-3 mr-3"/>
-                        <Butt number={"+"} className="ml-3 mr-3"/>
+                        <Butt number={1} onClick={this.incrementNum} />
+                        <Butt number={2} onClick={this.incrementNum} />
+                        <Butt number={3} onClick={this.incrementNum} />
+                        <Butt number={"+"} onClick={this.setOperator} />
                     </Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-center">
-                        <Butt number={4} className="ml-3 mr-3"/>
-                        <Butt number={5} className="ml-3 mr-3"/>
-                        <Butt number={6} className="ml-3 mr-3"/>
-                        <Butt number={"-"} className="ml-3 mr-3"/>
+                        <Butt number={4} onClick={this.incrementNum} />
+                        <Butt number={5} onClick={this.incrementNum} />
+                        <Butt number={6} onClick={this.incrementNum} />
+                        <Butt number={"-"} onClick={this.setOperator} />
                     </Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-center">
-                        <Butt number={7} className="ml-3 mr-3"/>
-                        <Butt number={8} className="ml-3 mr-3"/>
-                        <Butt number={9} className="ml-3 mr-3"/>
-                        <Butt number={0} className="ml-3 mr-3"/>
+                        <Butt number={7} onClick={this.incrementNum} />
+                        <Butt number={8} onClick={this.incrementNum} />
+                        <Butt number={9} onClick={this.incrementNum} />
+                        <Butt number={0} onClick={this.incrementNum} />
                     </Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-center">
-                        <Butt number={"/"} className="ml-3 mr-3"/>
-                        <Butt number={"*"} className="ml-3 mr-3"/>
-                        <Butt number={"="} className="ml-3 mr-3"/>
-                        <Butt number={"C"} className="ml-3 mr-3"/>
+                        <Butt number={"/"} onClick={this.setOperator} />
+                        <Butt number={"*"} onClick={this.setOperator} />
+                        <Butt number={"="} onClick={this.mathMethod} />
+                        <Butt number={"C"} onClick={this.clearMethod} />
                     </Col>
                 </Row>
             </Container>

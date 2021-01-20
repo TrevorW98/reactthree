@@ -1,8 +1,11 @@
 import { Button } from 'react-bootstrap';
 
-const butt = () => {
+const butt =(anything) =>{
+    const handleClickEvent = () => anything.onClick(anything.number)
     return (
-        <Button variant="dark">Dark</Button>
+        <Button variant="dark" onClick={handleClickEvent}>
+            {anything.number}
+        </Button>
     )
 }
 
