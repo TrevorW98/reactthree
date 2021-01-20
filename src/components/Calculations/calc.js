@@ -27,6 +27,9 @@ class CalculationButtons extends React.Component {
         this.setState({ displayResult: true })
         this.setState({ operator: newOperator })
     }
+    //Finally got the mulitple calculations working! I was trying to set the firstInput equal to the result state with each equation
+    //But instead i just set the first input to the actual equation itself and cleared the second input and operator
+    //I tried many more complicated ways but this simple way worked and the other ones didnt lol oh well
     mathMethod = () => {
         switch (this.state.operator) {
             case "+":
